@@ -2,3 +2,4 @@
 
 Para rodar o projeto é necessário setar as variáveis de ambiente PASSWORD=SUASENHA;USERNAME=SEULOGIN.
 
+Exercícios da semana 01 
