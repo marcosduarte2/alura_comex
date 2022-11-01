@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+
     @Query(value = """
             select c.nome as categoria,sum(ip.quantidade) as quantidade,sum(ip.preco_unitario * ip.quantidade - (ip.preco_unitario * ip.quantidade)*(ip.desconto/100)  ) as total 
             from itens_pedido ip 
