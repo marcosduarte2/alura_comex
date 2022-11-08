@@ -25,19 +25,18 @@ public class AuthorizationManagerConfig  extends AuthorizationServerConfigurerAd
 		@Autowired
 	    private PasswordEncoder passwordEncoder;
 
+
 		@Value("${jwt.secret}")
 		private String jwtSecret;
 
 		@Value("${jwt.accesstoken.expiration}")
 		private Integer accessExpiration;
-
 		@Value("${jwt.refreshtoken.expiration}")
 		private Integer refreshExpiration;
 		@Value("${api.client}")
 		private String cliente;
 		@Value("${api.client.secret}")
 		private String secret;
-
 
 
 		@Override
@@ -49,6 +48,7 @@ public class AuthorizationManagerConfig  extends AuthorizationServerConfigurerAd
 				.authorizedGrantTypes("password", "refresh_token")
 				.accessTokenValiditySeconds(this.accessExpiration)
 				.refreshTokenValiditySeconds(this.refreshExpiration);
+
 
 		}
 		
@@ -62,8 +62,9 @@ public class AuthorizationManagerConfig  extends AuthorizationServerConfigurerAd
 
 		@Bean
 		public JwtAccessTokenConverter accessTokenConverter() {
-			JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+			JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();ssssssssssssssssssssssssssssssssssssssssssssssssssss
 			accessTokenConverter.setSigningKey(this.jwtSecret);
+
 			return accessTokenConverter;
 		}
 	
