@@ -8,7 +8,9 @@ import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ItemRelarioVendaPorCategoria;
 import br.com.alura.comex.repository.ProdutoRepository;
 import br.com.alura.comex.service.ProdutoService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -54,6 +56,8 @@ public class CategoriaController {
     }
 
     @GetMapping(value = "/pedidos" , produces = {"application/json"})
+    @Operation(summary = "Relatório de vendas", description = "Gera o relatório de vendas agrupado por categoria")
+    @Cacheable(value = "relatorioVendas")
     public List<ItemRelarioVendaPorCategoria> relatorioVendaCategoria(){
         return this.produtoService.relatorioVendaCategoria();
     }
