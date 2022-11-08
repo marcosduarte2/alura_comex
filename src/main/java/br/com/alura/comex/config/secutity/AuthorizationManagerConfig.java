@@ -25,11 +25,19 @@ public class AuthorizationManagerConfig  extends AuthorizationServerConfigurerAd
 		@Autowired
 	    private PasswordEncoder passwordEncoder;
 
+
+		@Value("${jwt.secret}")
+		private String jwtSecret;
+
+		@Value("${jwt.accesstoken.expiration}")
+		private Integer accessExpiration;
+		@Value("${jwt.refreshtoken.expiration}")
+		private Integer refreshExpiration;
 		@Value("${api.client}")
 		private String cliente;
-
 		@Value("${api.client.secret}")
 		private String secret;
+
 
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -38,7 +46,10 @@ public class AuthorizationManagerConfig  extends AuthorizationServerConfigurerAd
 				.secret(this.passwordEncoder.encode(this.secret))
 				.scopes("read", "write")
 				.authorizedGrantTypes("password", "refresh_token")
-				.accessTokenValiditySeconds(180);
+				.accessTokenValiditySeconds(this.accessExpiration)
+				.refreshTokenValiditySeconds(this.refreshExpiration);
+
+
 		}
 		
 		@Override
@@ -51,8 +62,9 @@ public class AuthorizationManagerConfig  extends AuthorizationServerConfigurerAd
 
 		@Bean
 		public JwtAccessTokenConverter accessTokenConverter() {
-			JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-			accessTokenConverter.setSigningKey("123456");
+			JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();ssssssssssssssssssssssssssssssssssssssssssssssssssss
+			accessTokenConverter.setSigningKey(this.jwtSecret);
+
 			return accessTokenConverter;
 		}
 	
